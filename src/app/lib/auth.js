@@ -1,4 +1,4 @@
-import jwt, { sign } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export function generateToken(admin){
     return jwt.sign(

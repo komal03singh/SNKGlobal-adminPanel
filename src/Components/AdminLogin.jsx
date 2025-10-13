@@ -19,14 +19,14 @@ function AdminLogin() {
             name="email"
             id="email"
             placeholder="Enter your email"
-            className="border-black/20 border w-full px-4 py-2 my-1 rounded-lg"
+            className="border-black/20 border w-full px-4 py-2 my-1 rounded-lg outline-none"
           />
           <input
           type="password"
           name="password"
           id="password"
           placeholder="Enter your password"
-          className="border-black/20 border w-full px-4 py-2 my-1 rounded-lg"/>
+          className="border-black/20 border w-full px-4 py-2 my-1 rounded-lg outline-none"/>
         </div>
         
       </form> 
