@@ -12,4 +12,5 @@ export default async function createDefaultAdmin(){
     })
 
     console.log("Defalult admin created")
+    
 }
