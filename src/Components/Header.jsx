@@ -1,0 +1,28 @@
+import React from 'react'
+import Image from 'next/image'
+import { LuLayoutDashboard } from "react-icons/lu";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { BsCart2 } from "react-icons/bs";
+import { IoPeopleOutline } from "react-icons/io5";
+
+function Header() {
+  return (
+    <div className='fixed left-0 top-0 h-screen w-3/12 bg-[#F6F6F6] flex flex-col gap-4'>
+        <nav className='flex items-center h-30 px-3'>
+        <Image height={150} width={200} src="/snkNewLogo.png" alt="logo" />
+      </nav>
+      <div className='flex '>
+        <div className='w-[90%] py-5 px-2'>
+          <ul className='flex flex-col gap-4'>
+            <li className='flex gap-2 items-center px-4 py-2 rounded-3xl transition-all duration-300 hover:bg-[#80DEEA]/25 hover:backdrop-blur-3xl hover:shadow-lg hover:shadow-[#4DD0E1]/30 hover:font-medium hover:translate-x-1.5 hover:cursor-pointer'><span className='text-2xl'><LuLayoutDashboard /></span>Dashboard</li>
+            <li className='flex gap-2 items-center px-4 py-2 rounded-3xl transition-all duration-300 hover:bg-[#80DEEA]/25 hover:backdrop-blur-3xl hover:shadow-lg hover:shadow-[#4DD0E1]/30 hover:font-medium hover:translate-x-1.5 hover:cursor-pointer'><span className='text-2xl'><HiOutlineShoppingBag /></span>Product</li>
+            <li className='flex gap-2 items-center px-4 py-2 rounded-3xl transition-all duration-300 hover:bg-[#80DEEA]/25 hover:backdrop-blur-3xl hover:shadow-lg hover:shadow-[#4DD0E1]/30 hover:font-medium hover:translate-x-1.5 hover:cursor-pointer'><span className='text-2xl'><BsCart2 /></span>Orders</li>
+            <li className='flex gap-2 items-center px-4 py-2 rounded-3xl transition-all duration-300 hover:bg-[#80DEEA]/25 hover:backdrop-blur-3xl hover:shadow-lg hover:shadow-[#4DD0E1]/30 hover:font-medium hover:translate-x-1.5 hover:cursor-pointer'><span className='text-2xl'><IoPeopleOutline /></span>Customers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Header

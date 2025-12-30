@@ -24,8 +24,11 @@ function AdminLogin() {
       }),
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      credentials: "include",
     })
+    console.log(res)
+    console.log(name,password)
 
     if(res.ok){
       router.push("/AdminDashboard")
@@ -39,8 +42,9 @@ function AdminLogin() {
     <div className="flex flex-col items-center justify-center h-screen w-full">
       <h1 className="flex items-center gap-2 text-5xl font-bold"><span><MdOutlineAdminPanelSettings /></span>Admin Panel</h1>
 
-      <form onSubmit={handleLogin} className="w-1/2 p-6 flex items-center gap-8 mt-8">
-        <div className="text-lg flex flex-col font-light gap-4 items-center justify-start">
+      <form onSubmit={handleLogin} className="w-1/2 p-6 flex flex-col items-center gap-8 mt-8">
+        <div className="flex w-full justify-center">
+          <div className="text-lg flex flex-col font-light gap-4 items-center justify-start">
           <label className=" flex items-center gap-2 w-full py-2 my-2" htmlFor="name"><span className="text-2xl"><CiMail /></span>Enter Email</label>
           <label className="flex items-center gap-2 py-2 my-2" htmlFor="Password"><span className="text-2xl"><CiLock /></span>Enter Password</label>  
         </div >
@@ -61,9 +65,12 @@ function AdminLogin() {
           placeholder="Enter your password"
           className="border-black/20 border w-full px-4 py-2 my-1 rounded-lg outline-none"/>
         </div>
+        </div>
+
+        <button type="submit" className="bg-black text-white px-6 py-2 rounded-lg mt-6">Login</button>
         
       </form> 
-      <button type="submit" className="bg-black text-white px-6 py-2 rounded-lg mt-6">Login</button>
+      
       
     </div>
   )

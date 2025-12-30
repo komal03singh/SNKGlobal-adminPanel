@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import createDefaultAdmin from "@/app/lib/createAdmin.js"
 
 const connection = {}
 
@@ -12,6 +13,9 @@ async function dbConnect(){
         connection.isConnected = db.connections[0].readyState
         console.log("Connected to database")
         console.log(db)
+
+        await createDefaultAdmin()
+
     } catch (error) {
         console.error("Error connecting to database", error)
         process.exit(1)
