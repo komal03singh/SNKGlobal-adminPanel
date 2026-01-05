@@ -55,3 +55,19 @@ export async function POST(req) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    await dbConnect();
+
+    const products = await Product.find().sort({ createdAt: -1 });
+
+    return NextResponse.json(products, { status: 200 });
+  } catch (error) {
+    console.error("GET /products error:", error);
+    return NextResponse.json(
+      { message: "Failed to fetch products" },
+      { status: 500 }
+    );
+  }
+}

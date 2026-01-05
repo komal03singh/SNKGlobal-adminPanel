@@ -18,10 +18,10 @@ function AddProduct() {
   const handleImageUpload = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "product_images");
+    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
 
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/CLOUD_NAME/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
       {
         method: "POST",
         body: formData,
@@ -29,6 +29,13 @@ function AddProduct() {
     );
 
     const data = await res.json();
+
+    console.log("Cloudinary response:", data);
+
+    if (!data.secure_url) {
+      throw new Error("Image upload failed");
+    }
+
     return data.secure_url;
   };
 
@@ -100,7 +107,7 @@ function AddProduct() {
         quantity: "",
       });
       setFeatures([""]);
-      setImageLinks([""]);
+      setImageLinks([]);
     } catch (error) {
       console.error(error);
       setMessage("❌ Error adding product");
@@ -249,47 +256,39 @@ function AddProduct() {
                   Product Images (Max 3)
                 </label>
 
-                <div className="space-y-3">
-                  {imageLinks.map((url, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between rounded-lg border px-4 py-3"
-                    >
-                      <span className="text-sm truncate">
-                        {typeof url === "string"
-                          ? url.split("/").pop()
-                          : "Uploading..."}
-                      </span>
-
+                <div className="grid grid-cols-3 gap-4">
+                  {imageLinks.filter(Boolean).map((img, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={img}
+                        alt="Preview"
+                        className="h-24 w-full object-cover rounded-lg border"
+                      />
                       <button
                         type="button"
                         onClick={() => removeImageField(index)}
-                        className="text-sm underline"
+                        className="absolute top-1 right-1 bg-black text-white text-xs rounded-full px-2 opacity-0 group-hover:opacity-100"
                       >
-                        Remove
+                        ✕
                       </button>
                     </div>
                   ))}
 
                   {imageLinks.length < 3 && (
-                    <label className="flex items-center justify-center gap-2 rounded-lg border-2 border-dashed py-3 cursor-pointer hover:bg-gray-50">
+                    <label className="h-24 flex items-center justify-center border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50">
                       <input
                         type="file"
                         accept="image/*"
                         hidden
                         onChange={async (e) => {
-                          const file = e.target.files?.[0];
+                          const file = e.target.files[0];
                           if (!file) return;
 
                           const url = await handleImageUpload(file);
-                          if (url) {
-                            setImageLinks((prev) => [...prev, url]);
-                          }
+                          setImageLinks((prev) => [...prev, url]);
                         }}
                       />
-                      <span className="text-sm font-medium">
-                        + Upload Image
-                      </span>
+                      <span className="text-sm text-gray-500">+ Upload</span>
                     </label>
                   )}
                 </div>
